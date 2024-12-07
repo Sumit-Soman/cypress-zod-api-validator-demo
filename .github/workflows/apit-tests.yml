@@ -1,0 +1,43 @@
+name: api-tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
+
+jobs:
+  cypress-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Start Server
+        run: |
+          npm run start
+          sleep 2 # Wait for the server to start
+      - name: Generate OpenAPI Schema
+        run: npm run generate:openapi
+      
+      - name: Run Cypress Tests
+        run: npm run cypress:run
+
+      - name: Cypress e2e tests 🧪
+        uses: cypress-io/github-action@v6.6.1
+        with:
+          browser: chrome
+          config-file: cypress.config.js
+      - name: Cleanup Server
+        run: |
+            kill $(jobs -p)
