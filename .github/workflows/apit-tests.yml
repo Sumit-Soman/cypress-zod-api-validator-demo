@@ -23,21 +23,32 @@ jobs:
       - name: Install dependencies
         run: npm install
       
-      - name: Start Server
-        run: |
-          npm run start &
-          sleep 2 # Wait for the server to start
+      # - name: Start Server
+      #   run: |
+      #     npm run start &
+      #     sleep 2 # Wait for the server to start
       - name: Generate OpenAPI Schema
         run: npm run generate:openapi
       
-      - name: Run Cypress Tests
-        run: npx cypress run
+      # - name: Run Cypress Tests
+      #   run: npx cypress run
 
-      # - name: Cypress e2e tests 🧪
-      #   uses: cypress-io/github-action@v6.6.1
-      #   with:
-      #     browser: chrome
-      #     config-file: cypress.config.js
+      - name: Cypress e2e tests 🧪
+        uses: cypress-io/github-action@v6.6.1
+        with:
+          browser: chrome
+          start: npm run start
+          wait-on: http://localhost:3003
+          wait-on-timeout: 5
+
+      - name: Upload Cypress Test Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Cypress Test Report
+          path: cypress/videos/
+      
       - name: Cleanup Server
+        if: always()
         run: |
             kill $(jobs -p)
