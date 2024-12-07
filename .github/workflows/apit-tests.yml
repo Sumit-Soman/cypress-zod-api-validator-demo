@@ -31,13 +31,13 @@ jobs:
         run: npm run generate:openapi
       
       - name: Run Cypress Tests
-        run: npm run cypress:run
+        run: npx cypress run
 
-      - name: Cypress e2e tests 🧪
-        uses: cypress-io/github-action@v6.6.1
-        with:
-          browser: chrome
-          config-file: cypress.config.js
+      # - name: Cypress e2e tests 🧪
+      #   uses: cypress-io/github-action@v6.6.1
+      #   with:
+      #     browser: chrome
+      #     config-file: cypress.config.js
       - name: Cleanup Server
         run: |
             kill $(jobs -p)
