@@ -38,8 +38,6 @@ jobs:
         with:
           browser: chrome
           start: npm run start
-          wait-on: http://localhost:3003
-          wait-on-timeout: 5
 
       - name: Upload Cypress Test Report
         if: always()
