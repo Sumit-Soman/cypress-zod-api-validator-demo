@@ -1,0 +1,25 @@
+{
+  "name": "cypress-zod-api-validator-demo",
+  "version": "1.0.0",
+  "main": "convert-schema-openapi.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate:openapi": "node generate-openapi.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "cypress": "^13.16.1",
+    "express": "^4.21.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "zod": "^3.5.4"
+  },
+  "type": "module",
+  "dependencies": {
+    "@asteasolutions/zod-to-openapi": "^7.3.0"
+  }
+}
